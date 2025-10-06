@@ -40,6 +40,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     env:
+      DATABASE_URL: "postgresql://postgres:password@localhost:5432/starter-repo"
       CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
       NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
       NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
