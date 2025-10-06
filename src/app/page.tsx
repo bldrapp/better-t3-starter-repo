@@ -45,6 +45,18 @@ export default async function Home() {
 							</button>
 						</SignOutButton>
 					</SignedIn>
+
+					<Link href="/protected">
+						<button
+							type="button"
+							className={`cursor-pointer rounded-full px-10 py-3 font-bold text-black ${
+								user ? "bg-blue-300" : "bg-red-300"
+							}`}
+						>
+							Go to Protected Page
+						</button>
+					</Link>
+
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
 						<Link
 							className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
