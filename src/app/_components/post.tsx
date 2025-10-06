@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import posthog from "posthog-js";
+import { useState } from "react";
 
 import { api } from "~/trpc/react";
 
