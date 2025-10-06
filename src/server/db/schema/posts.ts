@@ -1,5 +1,5 @@
-import { defaultFields, createTable } from "../helpers";
 import { index, varchar } from "drizzle-orm/pg-core";
+import { createTable, defaultFields } from "../helpers";
 
 export const posts = createTable(
 	"posts",

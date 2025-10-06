@@ -14,6 +14,8 @@ export const defaultFields = {
 	createdAt: timestamp("created_at", { withTimezone: true })
 		.default(sql`CURRENT_TIMESTAMP`)
 		.notNull(),
-	updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(() => new Date()),
+	updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
+		() => new Date(),
+	),
 	deletedAt: timestamp("deleted_at", { withTimezone: true }),
 };
