@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import posthog from "posthog-js";
 
 import { api } from "~/trpc/react";
 
@@ -12,6 +13,7 @@ export function LatestPost() {
 	const createPost = api.post.create.useMutation({
 		onSuccess: async () => {
 			await utils.post.invalidate();
+			posthog.capture("post_created", { name });
 			setName("");
 		},
 	});
