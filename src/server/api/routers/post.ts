@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
 import { posts } from "~/server/db/schema";
 
 export const postRouter = createTRPCRouter({
@@ -26,5 +26,9 @@ export const postRouter = createTRPCRouter({
 		});
 
 		return post ?? null;
+	}),
+
+	secret: protectedProcedure.query(({ ctx }) => {
+		return { message: `This message is only shown for signed in users. Your user id is ${ctx.user.id}.` };
 	}),
 });

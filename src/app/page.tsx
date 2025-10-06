@@ -14,6 +14,7 @@ export default async function Home() {
 	const hello = await api.post.hello({ text: "from tRPC" });
 	const user = await currentUser();
 	void api.post.getLatest.prefetch();
+	const secret = user ? await api.post.secret() : null;
 
 	return (
 		<HydrateClient>
@@ -22,40 +23,47 @@ export default async function Home() {
 					<h1 className="font-extrabold text-5xl tracking-tight sm:text-[5rem]">
 						Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
 					</h1>
-					<SignedOut>
-						<SignInButton>
-							<button
-								type="button"
-								className="cursor-pointer rounded-full bg-green-300 px-10 py-3 font-bold text-black"
-							>
-								Sign In
-							</button>
-						</SignInButton>
-					</SignedOut>
-					<SignedIn>
-						<h1 className="font-bold text-2xl">
-							Hello, {user?.primaryEmailAddress?.emailAddress}
-						</h1>
-						<SignOutButton>
-							<button
-								type="button"
-								className="cursor-pointer rounded-full bg-orange-300 px-10 py-3 font-bold text-black"
-							>
-								Sign Out
-							</button>
-						</SignOutButton>
-					</SignedIn>
+					<div className="space-x-2 space-y-2 text-center">
+						<SignedOut>
+							<SignInButton>
+								<button
+									type="button"
+									className="cursor-pointer rounded-full bg-green-300 px-10 py-3 font-bold text-black"
+								>
+									Sign In
+								</button>
+							</SignInButton>
+						</SignedOut>
+						<SignedIn>
+							<div className="space-y-2 text-center">
+								<h1 className="font-bold text-2xl">
+									Hello, {user?.primaryEmailAddress?.emailAddress}
+								</h1>
+								{secret && (
+									<p className="mt-2 text-pink-300 text-sm">{secret.message}</p>
+								)}
+							</div>
+							<SignOutButton>
+								<button
+									type="button"
+									className="cursor-pointer rounded-full bg-orange-300 px-10 py-3 font-bold text-black"
+								>
+									Sign Out
+								</button>
+							</SignOutButton>
+						</SignedIn>
 
-					<Link href="/protected">
-						<button
-							type="button"
-							className={`cursor-pointer rounded-full px-10 py-3 font-bold text-black ${
-								user ? "bg-blue-300" : "bg-red-300"
-							}`}
-						>
-							Go to Protected Page
-						</button>
-					</Link>
+						<Link href="/protected">
+							<button
+								type="button"
+								className={`cursor-pointer rounded-full px-10 py-3 font-bold text-black ${
+									user ? "bg-blue-300" : "bg-red-300"
+								}`}
+							>
+								Go to Protected Page
+							</button>
+						</Link>
+					</div>
 
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
 						<Link
