@@ -27,7 +27,6 @@
 		"next": "^15.5.4",
 		"postgres": "^3.4.7",
 		"posthog-js": "^1.271.0",
-		"posthog-node": "^5.9.2",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"server-only": "^0.0.1",
