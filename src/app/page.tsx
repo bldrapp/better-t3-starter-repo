@@ -1,3 +1,10 @@
+import {
+	SignedIn,
+	SignedOut,
+	SignInButton,
+	SignOutButton,
+} from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 
 import { LatestPost } from "~/app/_components/post";
@@ -5,7 +12,7 @@ import { HydrateClient, api } from "~/trpc/server";
 
 export default async function Home() {
 	const hello = await api.post.hello({ text: "from tRPC" });
-
+	const user = await currentUser();
 	void api.post.getLatest.prefetch();
 
 	return (
@@ -15,6 +22,29 @@ export default async function Home() {
 					<h1 className="font-extrabold text-5xl tracking-tight sm:text-[5rem]">
 						Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
 					</h1>
+					<SignedOut>
+						<SignInButton>
+							<button
+								type="button"
+								className="cursor-pointer rounded-full bg-green-300 px-10 py-3 font-bold text-black"
+							>
+								Sign In
+							</button>
+						</SignInButton>
+					</SignedOut>
+					<SignedIn>
+						<h1 className="font-bold text-2xl">
+							Hello, {user?.primaryEmailAddress?.emailAddress}
+						</h1>
+						<SignOutButton>
+							<button
+								type="button"
+								className="cursor-pointer rounded-full bg-orange-300 px-10 py-3 font-bold text-black"
+							>
+								Sign Out
+							</button>
+						</SignOutButton>
+					</SignedIn>
 					<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">
 						<Link
 							className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 hover:bg-white/20"
